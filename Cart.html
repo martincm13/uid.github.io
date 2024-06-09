@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>SendWish</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="about copy.html">About</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="Cart.html">Cart</a></li>
+    </ul>
+</nav>
+
+<main>
+    <h2>Your Shopping Cart</h2>
+    <div id="cart-items" class="cart-items">
+    </div>
+    <div id="total-price"></div>
+    <button id="checkout-btn" class="checkout-btn">Proceed to Checkout</button>
+    <button id="continue-shopping-btn" class="continue-shopping-btn">Continue Shopping</button>
+</main>
+
+<script>
+    function displayCartItems() {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const cartItemsContainer = document.getElementById('cart-items');
+        let totalPrice = 0;
+
+        // Clear previous items
+        cartItemsContainer.innerHTML = '';
+
+        // Loop through cart items
+        cartItems.forEach((item, index) => {
+            const itemElement = document.createElement('div');
+            itemElement.classList.add('cart-item');
+            itemElement.innerHTML = `
+                <p><strong>${item.name}</strong></p>
+                <p>Price: $${item.price.toFixed(2)} USD</p>
+                <p>Quantity: ${item.quantity}</p>
+                <button class="remove-item-btn" data-index="${index}">Remove</button>
+            `;
+            cartItemsContainer.appendChild(itemElement);
+
+            totalPrice += item.price * item.quantity; // Calculate total price
+        });
+
+        // Update total price
+        const totalPriceElement = document.getElementById('total-price');
+        totalPriceElement.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+
+        // remove buttons
+        const removeButtons = document.querySelectorAll('.remove-item-btn');
+        removeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const index = parseInt(button.getAttribute('data-index'));
+                removeFromCart(index);
+            });
+        });
+    }
+            // quantity 
+            const quantityInputs = document.querySelectorAll('.quantity-input');
+        quantityInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                const index = parseInt(input.getAttribute('data-index'));
+                const newQuantity = parseInt(input.value);
+                updateQuantity(index, newQuantity);
+            });
+        });
+
+    function updateTotalPrice(totalPrice) {
+        const totalPriceElement = document.getElementById('total-price');
+        totalPriceElement.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+    }
+
+    // remove item from cart
+    function removeFromCart(index) {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        cartItems.splice(index, 1); // Remove item from array
+        localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Save updated cart to local storage
+        displayCartItems(); // Update cart display
+    }
+
+  // Function to save cart items to localStorage
+  function saveCartItems() {
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    }
+
+    // Display cart items 
+    document.addEventListener('DOMContentLoaded', displayCartItems);
+
+    // checkout button
+    document.getElementById('checkout-btn').addEventListener('click', function() {
+        window.location.href = 'checkout.html';
+    });
+
+    document.getElementById('continue-shopping-btn').addEventListener('click', function() {
+        window.location.href = 'shop.html';
+    });
+</script>
+
+</body>
+</html>

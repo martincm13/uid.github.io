@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Confirmation Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>SendWish</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="about copy.html">About</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="Cart.html">Cart</a></li>
+    </ul>
+</nav>
+
+<style>
+
+.container {
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            color: #000000;
+        }
+        .order-details {
+            text-align: left;
+            margin: 20px 0;
+        }
+        .order-details p {
+            margin: 5px 0;
+        }
+        .btn {
+            background-color: #e2a05a;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #d16348;
+        }
+    </style>
+
+</head>
+
+<div class="container">
+    <h1>Order Placed!</h1>
+    <p>Your order has been placed successfully!</p>
+    <p>A confirmation email has been sent to you.</p>
+    <div class="order-details">
+        <h2>Order Details</h2>
+        <p><strong>Order Number:</strong> #12765 <span id="orderNumber"></span></p>
+        <p><strong>Customer Name:</strong> <span id="customerName"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>Phone:</strong> <span id="phone"></span></p>
+        <p><strong>Address:</strong> <span id="address"></span></p>
+        <p><strong>City:</strong> <span id="city"></span></p>
+        <p><strong>Total Price:</strong><span id="total-price"></span></p>
+    </div>
+    <a href="shop.html" class="btn">Continue Shopping</a>
+</div>
+
+<script>
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const orderDetails = JSON.parse(localStorage.getItem('orderDetails'));
+
+        if (orderDetails) {
+            document.getElementById('orderNumber').textContent = orderDetails.orderNumber;
+            document.getElementById('customerName').textContent = orderDetails.customerName;
+            document.getElementById('email').textContent = orderDetails.email;
+            document.getElementById('phone').textContent = orderDetails.phone;
+            document.getElementById('address').textContent = orderDetails.address;
+            document.getElementById('city').textContent = orderDetails.city;
+            document.getElementById('total-price').textContent = orderDetails.totalAmount;
+        }
+    });
+</script>
+
+</body>
+</html>

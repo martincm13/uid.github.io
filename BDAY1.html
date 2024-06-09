@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+   <meta charset="utf-8">
+   <title>Assignment 3 User Interface Development</title>
+   <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  
+   <script>
+
+
+   </script>
+
+<header>
+    <h1>SendWish</h1>
+  </header>
+  
+
+  <nav>
+    <ul>
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="about copy.html">About</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="Cart.html">Cart</a></li>
+    </ul>
+  </nav>
+
+
+  <div class="img-bday1">
+
+    <img src="file:///Users/charlottemartin/Desktop/UNI/Computer%20Science/UID/A3%20UID/hbd1.png" alt="" class="grid">
+
+  </div>
+
+  <div class="img-text-container">
+    <h1>Birthday Card</h1>
+    <h1>$2.99 USD</h1>
+    <p>Spoil your loved ones with a special birthday message.</p>
+    <button id="add-to-basket" class="add-to-basket-btn">Add to Basket</button>
+  </div>
+
+  <script>
+    // Function to add item to cart
+    function addToCart() {
+            // Item details
+            const item = {
+                name: "Birthday Card",
+                price: 2.99,
+                quantity: 1
+            };
+
+            // Get existing cart items from local storage or initialize an empty array
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+            // Add item to cart array
+            cartItems.push(item);
+
+            // Save updated cart back to local storage
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+            // Display message
+            alert("Birthday Card added to cart!");
+        }
+
+    function displayCartItems() {
+        const cartItemsContainer = document.getElementById('cart-items');
+        let totalPrice = 0;
+
+        // Clear previous items
+        cartItemsContainer.innerHTML = '';
+
+        // Loop through cart items
+        cartItems.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.classList.add('cart-item');
+            itemElement.innerHTML = `
+                <p><strong>${item.name}</strong></p>
+                <p>Price: $${item.price.toFixed(2)} USD</p>
+                <p>Quantity: ${item.quantity}</p>
+            `;
+            cartItemsContainer.appendChild(itemElement);
+
+            totalPrice += item.price * item.quantity; // Calculate total price
+        });
+
+        // Update total price
+        const totalPriceElement = document.getElementById('total-price');
+        totalPriceElement.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+    }
+
+
+document.querySelector('.add-to-basket-btn').addEventListener('click', addToCart);
+
+</script>
+
+
+<style>
+    p {
+        margin-top: 20px;
+    }
+
+    .img-text-container {
+        overflow: auto;
+        padding: 20px;
+        margin-top: 50px;
+    }
+
+    .img-bday1 {
+        float: left;
+        padding: 40px;
+        margin-right: 20px;
+        max-width: 100%;
+        height: 500px;
+    }
+
+    .text-content {
+        font-size: large;
+        padding: 20px;
+    }
+
+    .add-to-basket-btn {
+        background-color: #feba7a;
+        color: #030303;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 30px;
+    }
+
+    .add-to-basket-btn:hover {
+        background-color: #fbbaba;
+    }
+</style>
+</body>
+</html>
